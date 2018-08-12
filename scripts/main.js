@@ -11,12 +11,7 @@ var collection = {
 }
 
 	parse();																						//parse strings received from the local Storage every 
-																									//time when user reload program or page
-
-function getValueById(name){																		//gets value from text fields
-	return document.getElementById(name).value != "" ? document.getElementById(name).value : false;
-}
-
+																									//time when user reload program or page																																																
 function returnString(key){																			//return strings from the local Storage by key
 	return localStorage.getItem(key);
 }
@@ -48,13 +43,6 @@ function createGIFC(str, key){																																																		
 	var button = document.getElementById("collectionsBar").lastElementChild.appendChild(createElement("button", "Delete"));						
 	button.setAttribute("key", key);																										
 	button.setAttribute("onclick" , "deleteCollection(this.getAttribute('key'))");																	
-}
-
-//receive name of elm and text which will should be wrote on element
-function createElement(name, text){
-	var element = document.createElement(name);
-	element.innerHTML = text;
-	return element;
 }
 
 function parse(){																					//This function calls when user reload page
