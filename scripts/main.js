@@ -42,13 +42,12 @@ function createNewCollection(){          															//create new collection 
 		createGIFC(str, collections.length-1);														//collection.length-1 becouse I have already created new elm in collections and increase length of it
 }
 
-<<<<<<< HEAD
 //this code should be optimized(upgrade createElm func)
-function createGIFC(str, key){																					//should to add new func which receives tag-name and content and create this element;																												//create new paragraph                                                              																			//set text for paragraph
-	document.getElementById("collectionsBar").appendChild(createElement("p", str));									//add this paragraph to DOM												//create button																	//set button text
-	var button = document.getElementById("collectionsBar").lastElementChild.appendChild(createElement("button", "Delete"));						//add button to DOM
-	button.setAttribute("key", key);																		//set key-attribute, for easily identificating this button
-	button.setAttribute("onclick" , "deleteCollection(this.getAttribute('key'))");											//set onclick-attribute
+function createGIFC(str, key){																																																								                                                             																			//set text for paragraph
+	document.getElementById("collectionsBar").appendChild(createElement("p", str));																
+	var button = document.getElementById("collectionsBar").lastElementChild.appendChild(createElement("button", "Delete"));						
+	button.setAttribute("key", key);																										
+	button.setAttribute("onclick" , "deleteCollection(this.getAttribute('key'))");																	
 }
 
 //receive name of elm and text which will should be wrote on element
@@ -64,26 +63,6 @@ function parse(){																					//This function calls when user reload pag
 
 				collection.createCollection();														//Create local collections to correct work with creating of new collections in future
 
-=======
-//this code should be optimized
-function createGIFC(str, key){																		//should to add new func which receives tag-name and content and create this element;
-	var p = document.createElement("p");															//create new paragraph                                                              
-	p.innerHTML = str;																				//set text for paragraph
-	document.getElementById("collectionsBar").appendChild(p);										//add this paragraph to DOM
-	var button = document.createElement("button");													//create button
-	button.innerHTML = "Delete";																	//set button text
-	document.getElementById("collectionsBar").lastElementChild.appendChild(button);					//add button to DOM
-	button.setAttribute("key", key);																//set key-attribute, for easily identificating this button
-	button.setAttribute("onclick" , "deleteCollection(this.getAttribute('key'))");					//set onclick-attribute
-}
-
-function parse(){																					//This function calls when user reload page
-		console.log("localStorage, length = " + localStorage.length);									
-		for(var i = 0;i<localStorage.length;i++){													//Go throught each local Storage element[which contains words and col. name] 
-
-				collection.createCollection();														//Create local collections to correct work with creating of new collections in future
-
->>>>>>> 3d1cb9f0bcaa97fdb75048480cc6ee6b133edbfb
 				collections[i].keyWord = returnString(i).match(/\[(\w+)\]/)[1];						//Write down col. name
 			
 				for(var j = 0;storage = wordReg.exec(returnString(i));j++){							//parse words from the local Storage
@@ -101,41 +80,13 @@ function createCollection(){
 }
 
 function deleteCollection(key){
-<<<<<<< HEAD
-	reWriteCollections(key);																				
-}
-
-function reWriteCollections(current){
-            localStorage.removeItem(current);													//delete elm which should be deleted
-            var target = document.getElementsByTagName("button");								//search structure in document which visualise this collection
-            for(var i = 0;i<target.length;i++){															
-            	if(target[i].getAttribute("key") == current){target[i].parentNode.remove();		//delete this structure if it is what we need
-            		break;}
-            }
-}
-=======
 	reWriteCollections(key, localStorage.length-1);																				
 }
 
-//this code should be optimized
 function reWriteCollections(current, target){
-
-          var temp = [];																			//create local temporary array which contains items from localStorage
-          localStorage.removeItem(current); 														//remove elm which should be deleted
-          for(var i = 0;i<target;i++){													
-          	temp[i] = localStorage.getItem(localStorage.key(i));							
-          }
-
-          localStorage.clear();																		//clear storage
-
-          var element = document.getElementById("collectionsBar");    								//clear graphic imagination of local storage
-			while (element.firstChild) {						
-			  element.removeChild(element.firstChild);
-			}
-
-            for(var i = 0;i<temp.length;i++){
-            	localStorage.setItem(i, temp[i]);													//set new items 
-          	createGIFC(localStorage.getItem(i), i);													//create new graphic elm
+            localStorage.removeItem(current);
+            var target = document.getElementsByTagName("button");
+            for(var i = 0;i<target.length;i++){
+            	if(target[i].getAttribute("key") == current)target[i].parentNode.remove();
             }
 }
->>>>>>> 3d1cb9f0bcaa97fdb75048480cc6ee6b133edbfb
