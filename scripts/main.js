@@ -50,20 +50,18 @@ function createGIFC(str, key){																																																		
 function parse(){																					//This function calls when user reload page
 								console.log(localStorage.length);
 		for(var i = 0;i<localStorage.length;i++){												//Go throught each local Storage element[which contains words and col. name] 
-		console.log("----------------------------------------");
-		console.log("LocalS elm: " + i);
+
 			createGIFC(localStorage.getItem(localStorage.key(i)), localStorage.key(i));
-				console.log("Created GUI for " + i + " elm!");
+
 					collection.createCollection();														//Create local collections to correct work with creating of new collections in future
-					console.log("Created spot for " + i);
+
 				collections[i].keyWord = returnString(i).match(/\[(\w+)\]/)[1];						//Write down col. name
-					console.log("Set key-word for " + i);
+
 				for(var j = 0;storage = wordReg.exec(returnString(i));j++){							//parse words from the local Storage
 					collections[i].engWords[j] = storage[1];
 					collections[i].rusWords[j] = storage[2];
 					
 				}
-				console.log("Created " + i + "elm!");
 				
 		} 
 	
