@@ -1,17 +1,16 @@
-var wordReg = /(\w+) *[—-] *(\W+)/g;																//reg for parsing words
-var collections = [];
+var wordReg = /(\w+) *[—-] *(\W+)/g,															//reg for parsing words
+	collections = [],
+		collection = {
+			engWords: [],
+			rusWords: [],
+			keyWord: "",
+			createCollection: function(){
+				collections[collections.length] = Object.create(this);										//creates new element in collections array
+			}
+		}
 
-var collection = {
-	engWords: [],
-	rusWords: [],
-	keyWord: "",
-	createCollection: function(){
-		collections[collections.length] = Object.create(this);										//creates new element in collections array
-	}
-}
-
-	parse();																						//parse strings received from the local Storage every 
-																									//time when user reload program or page																																																
+window.onload = parse();																			//parse local storage data afte each reloaded page and also create graphic imaginate of it  																				
+																																																																							
 function returnString(key){																			//return strings from the local Storage by key
 	return localStorage.getItem(key);
 }
@@ -40,16 +39,21 @@ function createNewCollection(){          															//create new collection 
 //this code should be optimized(upgrade createElm func)
 function createGIFC(str, key){																																																								                                                             																			//set text for paragraph
 	document.getElementById("collectionsBar").appendChild(createElement("p", str));																
-	var button = document.getElementById("collectionsBar").lastElementChild.appendChild(createElement("button", "Delete"));						
-	button.setAttribute("key", key);																										
-	button.setAttribute("onclick" , "deleteCollection(this.getAttribute('key'))");																	
+	var button = document.getElementById("collectionsBar").lastElementChild.appendChild(createElement("button", "Delete"));	
+	setAttributes(button, ["key", key, "onclick", "deleteCollection(this.getAttribute('key'))"]);					
+	//button.setAttribute("key", key);																										
+	//button.setAttribute("onclick" , "deleteCollection(this.getAttribute('key'))");	
+
 }
 
-function parse(){																					//This function calls when user reload page
-		console.log("localStorage, length = " + localStorage.length);									
-		for(var i = 0;i<localStorage.length;i++){													//Go throught each local Storage element[which contains words and col. name] 
 
-				collection.createCollection();														//Create local collections to correct work with creating of new collections in future
+function parse(){																					//This function calls when user reload page
+								
+		for(var i = 0;i<localStorage.length;i++){													//Go throught each local Storage element[which contains words and col. name] 
+				
+			createGIFC(localStorage.getItem(localStorage.key(i)), localStorage.key(i));
+
+					collection.createCollection();														//Create local collections to correct work with creating of new collections in future
 
 				collections[i].keyWord = returnString(i).match(/\[(\w+)\]/)[1];						//Write down col. name
 			
@@ -58,7 +62,7 @@ function parse(){																					//This function calls when user reload pag
 					collections[i].rusWords[j] = storage[2];
 					
 				}
-
+				
 		} 
 	
 }
@@ -74,7 +78,6 @@ function deleteCollection(key){
 function reWriteCollections(current, target){
             localStorage.removeItem(current);
             var target = document.getElementsByTagName("button");
-            for(var i = 0;i<target.length;i++){
-            	if(target[i].getAttribute("key") == current)target[i].parentNode.remove();
-            }
+            for(var i = 0;i<target.length;i++)
+     			if(target[i].getAttribute("key") == current)target[i].parentNode.remove();
 }
