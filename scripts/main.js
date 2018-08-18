@@ -1,92 +1,67 @@
 var wordReg = /(\w+) *[—-] *(\W+)/g,															//reg for parsing words
-	collections = [],
 		collection = {
 			engWords: [],
 			rusWords: [],
-			keyWord: "",
-			createCollection: function(){
-				collections[collections.length] = Object.create(this);										//creates new element in collections array
-			}
+			collectionName: ""
 		}
 
-window.onload = parse();																			//parse local storage data afte each reloaded page and also create graphic imaginate of it  																				
-																																																																							
+window.onload = loadGUI();																			//parse local storage data afte each reloaded page and also create graphic imaginate of it  																						
+
 function returnString(key){																			//return strings from the local Storage by key
 	return localStorage.getItem(localStorage.key(key));
 }
 
 function setKeyWord(){																				//return key words for future collections
-	return collections.length-1;
+	return localStorage.length;
 }
 
-function createNewCollection(){          															//create new collection automatically when user													
-	collection.createCollection();																	//click on the same button
-	
-		if(getValueById("mainText") && getValueById("collectionName")){								//if all text fields are fulled of by content
-			var str = "";																			//continue creating...
-
-			str = "[" + getValueById("collectionName") + "]";										//write down the name of collection wrote by user
-
-			while(storage = wordReg.exec(getValueById("mainText"))){								//write down words from main-text field which will be
-				 str += storage[1] + "—" + storage[2];												//saved to the local Storage
-				}
-			
-			localStorage.setItem(setKeyWord(), str);												//Saved words and collection name to the local Storage
-		}
-		createGIFC(str, collections.length-1);														//collection.length-1 becouse I have already created new elm in collections and increase length of it
+function createCollection(){          																	//create new collection automatically when user																														//click on the same button
+			if(getValueById("mainText") && getValueById("collectionName")){								//if all text fields are fulled of by content
+				var str = "";																			//continue creating...
+				str = "[" + getValueById("collectionName") + "]";										//write down the name of collection wrote by user
+				while(storage = wordReg.exec(getValueById("mainText"))){								//write down words from main-text field which will be
+					 str += storage[1] + "—" + storage[2];												//saved to the local Storage
+					}
+				localStorage.setItem(setKeyWord(), str);												//Saved words and collection name to the local Storage
+			}
+			createGIFC(getValueById("collectionName"), setKeyWord());													//collection.length-1 becouse I have already created new elm in collections and increase length of it																	
 }
 
-//this code should be optimized(upgrade createElm func)
-function createGIFC(str, key){																																																								                                                             																			//set text for paragraph
-	document.getElementById("collectionsBar").appendChild(createElement("p", str));																
+function createGIFC(str, key){																																																						                                                             																			//set text for paragraph
+	document.getElementById("collectionsBar").appendChild(createElement("p", str));
 	var button = document.getElementById("collectionsBar").lastElementChild.appendChild(createElement("button", "Delete"));	
 	setAttributes(button, ["key", key, "onclick", "deleteCollection(this.getAttribute('key'))"]);					
-	//button.setAttribute("key", key);																										
-	//button.setAttribute("onclick" , "deleteCollection(this.getAttribute('key'))");	
-
 }
 
-
-function parse(){																					//This function calls when user reload page
-								console.log(localStorage.length);
-		for(var i = 0;i<localStorage.length;i++){												//Go throught each local Storage element[which contains words and col. name] 
-
-			createGIFC(localStorage.getItem(localStorage.key(i)), localStorage.key(i));
-
-					collection.createCollection();														//Create local collections to correct work with creating of new collections in future
-
-				collections[i].keyWord = returnString(i).match(/\[(\w+)\]/)[1];						//Write down col. name
-
-				for(var j = 0;storage = wordReg.exec(returnString(i));j++){							//parse words from the local Storage
-					collections[i].engWords[j] = storage[1];
-					collections[i].rusWords[j] = storage[2];
-					
-				}
-				
-		} 
-	
-}
-
-function createCollection(){
-	createNewCollection();
-}
-
-function deleteCollection(key){
-	reWriteCollections(key, localStorage.length-1);																				
-}
-
-function reWriteCollections(current, target){
-            localStorage.removeItem(current);
-            var target = document.getElementsByTagName("button");
-            for(var i = 0;i<target.length;i++)
-     			if(target[i].getAttribute("key") == current)target[i].parentNode.remove();
-}
-
-function Show(){
-	for(var i = 0;i<collections.length;i++){
-		console.log("Collections[" + i + "] = ");
-		for(elm in collection){
-			console.log(elm[i]);
-		}
+function loadGUI(){
+	for(let i = 0;i<localStorage.length;i++){
+		createGIFC( returnString(i).match(/\[(\w+)\]/)[1], localStorage.key(i));
 	}
+}
+
+function parse(current){
+	 for(let i = 0;i<localStorage.length;i++){
+	 	if(localStorage.key(i) == current){
+	 		var currentCollection = Object.create(collection);
+	 		currentCollection.collectionName = returnString(i).match(/\[(\w+)\]/)[1];
+			for(let j = 0;storage = wordReg.exec(returnString(i));j++){
+				currentCollection.engWords[j] = storage[1];
+				currentCollection.rusWords[j] = storage[2];
+			}
+	 	}
+	}
+}
+
+function deleteCollection(current){
+	if(current != localStorage-1){														//if not last local storage elm
+			let text = localStorage.getItem(localStorage.length-1);							//give value from las LS elm
+			localStorage.setItem(current, text);											//set this value to elm which should be deleted(here smt like swapping)
+		}
+		localStorage.removeItem(localStorage.length-1);									//remove las elm
+			while(document.getElementById("collectionsBar").firstChild){				//clean collectionsBar
+				document.getElementById("collectionsBar").firstChild.remove();
+			}
+
+           		loadGUI();																//set new collectionsBar elms
+
 }
