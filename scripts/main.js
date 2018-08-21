@@ -37,7 +37,7 @@ function createGIFC(str, key){
 }
 
 function loadGUI(){
-	for(var i = 0;i<localStorage.length;i++){
+	for(let i = 0;i<localStorage.length;i++){
 		createGIFC( returnString(i).match(/\[(\w+)\]/)[1], localStorage.key(i));             			//this reg exp doesnt understand any symbols like !@#$ and spaces
 	}
 }
@@ -65,11 +65,17 @@ function deleteCollection(current){
 				document.getElementById("collectionsBar").firstChild.remove();
 			}
 
-           		loadGUI();																	//set new collectionsBar elms
+           		loadGUI();															//set new collectionsBar elms
 
 }
 
 
 function sheetMode(key){
-	//code here
+	let slide = document.getElementById("slideTop");
+	slide.style.height = "100%";
+}
+
+function close(){
+	let slide = document.getElementById("slideTop");
+	slide.style.height = "0";
 }

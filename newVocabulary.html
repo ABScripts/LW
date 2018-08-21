@@ -11,6 +11,7 @@
 
 <div id = "logo">
 	<h1>LW</h1>
+	<i id = "closeButton" class="fas fa-arrow-left"></i>
 </div>
 
 <div id = "slideTop" ></div>
@@ -31,5 +32,12 @@
 
 <script type = "text/javascript" src = "scripts/EDOM-lib/EDOM-min.js"></script> <!-- include lib for easily work with DOM-->
 <script type = "text/javascript" src = "scripts/main.js"></script>
+
+	<script>
+		document.getElementById("closeButton").onclick = function(){
+	let slide = document.getElementById("slideTop");
+	slide.style.height = "0";
+    }
+	</script>
 
 </body>

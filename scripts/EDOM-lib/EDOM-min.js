@@ -16,3 +16,8 @@ function setAttributes(element, attributes){
 	for(let i = 0;i<attributes.length;i++) element.setAttribute(attributes[i], attributes[++i]);			
 return element;
 }
+
+function setStyle(elm, prop, value){
+	console.log(elm + " " + prop +  " " + value);
+	elm.style.prop = value;
+}
