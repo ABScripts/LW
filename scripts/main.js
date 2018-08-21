@@ -73,4 +73,8 @@ function deleteCollection(current){
 function sheetMode(key){
 	let slide = document.getElementById("slideTop");
 	slide.style.height = "100%";
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> c21ef9bea42237ab23fb09fa5601346160a14140

@@ -1,0 +1,6 @@
+@media (max-width: 820px){
+    i:hover + .flexWrapper #slideMenu {
+	flex-basis: 13%;
+	}
+	i{	font-size: 1.8em;}
+   }
