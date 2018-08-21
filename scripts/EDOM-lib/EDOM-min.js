@@ -17,7 +17,7 @@ function setAttributes(element, attributes){
 return element;
 }
 
-function setStyle(elm, prop, value){
+/*function setStyle(elm, prop, value){
 	console.log(elm + " " + prop +  " " + value);
 	elm.style.prop = value;
-}
+}*/

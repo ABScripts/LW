@@ -28,12 +28,15 @@ function createCollection(){          																	//create new collection a
 				createGIFC(getValueById("collectionName"), currentKey);																								
 }
 
-function createGIFC(str, key){																																																						                                                             																		
-	document.getElementById("collectionsBar").appendChild(createElement("p", str));
-	var p = document.getElementById("collectionsBar").lastChild;
-	setAttributes(p,  ["key", key, "onclick", "sheetMode(this.getAttribute('key'))"]);
-	var button = document.getElementById("collectionsBar").lastElementChild.appendChild(createElement("button", "Delete"));	
-	setAttributes(button, ["key", key, "onclick", "deleteCollection(this.getAttribute('key'))"]);					
+function createGIFC(str, key){								
+	document.getElementById("collectionsBar").appendChild(createElement("div", ""));				//wrapper	
+	let element = document.getElementById("collectionsBar").lastChild;
+	setAttributes(element, ["class", "wrapper"]);
+	document.getElementById("collectionsBar").lastChild.appendChild(createElement("p", str));
+	element = document.getElementById("collectionsBar").lastChild.lastChild;
+	setAttributes(element,  ["key", key, "onclick", "sheetMode(this.getAttribute('key'))"]);
+	element = document.getElementById("collectionsBar").lastChild.appendChild(createElement("button", "Delete"));	
+	setAttributes(element, ["key", key, "onclick", "deleteCollection(this.getAttribute('key'))"]);					
 }
 
 function loadGUI(){
@@ -65,16 +68,11 @@ function deleteCollection(current){
 				document.getElementById("collectionsBar").firstChild.remove();
 			}
 
-           		loadGUI();															//set new collectionsBar elms
+           		loadGUI();																	//set new collectionsBar elms
 
 }
-
 
 function sheetMode(key){
-	let slide = document.getElementById("slideTop");
-	slide.style.height = "100%";
-<<<<<<< HEAD
+ document.getElementById("slideTop").classList.add("slide");                      //top pannel fall down
+  document.getElementById("closeButton").classList.remove("rotate180");			  //rotate up arrow 
 }
-=======
-}
->>>>>>> c21ef9bea42237ab23fb09fa5601346160a14140

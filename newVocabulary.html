@@ -34,10 +34,9 @@
 <script type = "text/javascript" src = "scripts/main.js"></script>
 
 	<script>
-		document.getElementById("closeButton").onclick = function(){
-	let slide = document.getElementById("slideTop");
-	slide.style.height = "0";
-    }
+		document.getElementById("closeButton").addEventListener("click" , function(){
+	document.getElementById("slideTop").classList.remove("slide");
+	document.getElementById("closeButton").classList.add("rotate180");
+    });
 	</script>
-
 </body>
