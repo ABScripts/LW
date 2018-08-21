@@ -3,19 +3,30 @@
 <head>
 <meta charset = "utf-8">
 <title>Vocabulary</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 <link rel = "stylesheet" href = "styles/styles.css" type = "text/css">
 </head>
 
 <body>
-<div id = "logoPlate">
+
+<div id = "logo">
 	<h1>LW</h1>
 </div>
-<div id = "receiveInformationBlock" >
-	<input id = "collectionName"></input><br>
-	<textarea id = "mainText"></textarea><br>
-	<button onclick = "createCollection()">CREATE COLLECTION!</button>
-</div>
-<div id = "collectionsBar"> 
+
+<div id = "slideTop" ></div>
+
+<i class="fas fa-cog"></i>
+	
+<div class = "flexWrapper">
+	<div id = "collectionsBar"> 
+	</div>
+	<div id = "slideMenu">
+	</div>
+</div>	
+		<div id = "receiveInformationBlock" >
+		<input id = "collectionName" placeholder = "Input collection name..." required></input><br>
+		<textarea id = "mainText" placeholder = "Input words..." required></textarea><br>
+		<button onclick = "createCollection()">CREATE COLLECTION!</button>
 	</div>
 
 <script type = "text/javascript" src = "scripts/EDOM-lib/EDOM-min.js"></script> <!-- include lib for easily work with DOM-->

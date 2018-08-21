@@ -16,4 +16,3 @@ function setAttributes(element, attributes){
 	for(let i = 0;i<attributes.length;i++) element.setAttribute(attributes[i], attributes[++i]);			
 return element;
 }
-
