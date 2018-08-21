@@ -74,8 +74,3 @@ function sheetMode(key){
 	let slide = document.getElementById("slideTop");
 	slide.style.height = "100%";
 }
-
-function close(){
-	let slide = document.getElementById("slideTop");
-	slide.style.height = "0";
-}
