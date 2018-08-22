@@ -1,4 +1,5 @@
-var wordReg = /(\w+) *[—-] *(\W+)/g,													//reg for parsing words
+var wordReg = /(\w+) *[—-] *(\W+)/g,	
+	returnedBack = false,												//reg for parsing words
 		collection = {
 			engWords: [],
 			rusWords: [],
@@ -73,6 +74,6 @@ function deleteCollection(current){
 }
 
 function sheetMode(key){
- document.getElementById("slideTop").classList.add("slide");                      //top pannel fall down
-  document.getElementById("closeButton").classList.remove("rotate180");			  //rotate up arrow 
+	document.getElementById("slideTop").classList.add("slide");                      //top pannel fall down
+	document.getElementById("closeButton").classList.remove("rotate180");			  //rotate up arrow 
 }

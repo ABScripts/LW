@@ -3,6 +3,7 @@
 <head>
 <meta charset = "utf-8">
 <title>Vocabulary</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 <link rel = "stylesheet" href = "styles/styles.css" type = "text/css">
 <link rel = "stylesheet" href = "styles/media.css" type = "text/css">
@@ -12,7 +13,7 @@
 
 <div id = "logo">
 	<h1>LW</h1>
-	<i id = "closeButton" class="fas fa-arrow-left"></i>
+	<i  id = "closeButton" class="fas fa-arrow-left"></i>
 </div>
 
 <div id = "slideTop" ></div>
@@ -35,8 +36,9 @@
 
 	<script>
 		document.getElementById("closeButton").addEventListener("click" , function(){
-	document.getElementById("slideTop").classList.remove("slide");
-	document.getElementById("closeButton").classList.add("rotate180");
+		returnedBack == true ? returnedBack = false : returnedBack = true;
+		document.getElementById("slideTop").classList.toggle("slide", !returnedBack);
+		document.getElementById("closeButton").classList.toggle("rotate180" , returnedBack);
     });
 	</script>
 </body>
