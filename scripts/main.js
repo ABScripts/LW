@@ -1,9 +1,11 @@
 var wordReg = /(\w+) *[—-] *(\W+)/g,	
-	returnedBack = false,												//reg for parsing words
+	returnedBack = false,	
+	thisCollection,											//reg for parsing words
 		collection = {
-			engWords: [],
-			rusWords: [],
-			collectionName: ""
+			words: [
+					{	delayed: 0 	}
+			],
+			name: ""
 		}
 
 window.onload = loadGUI();																			//parse local storage data afte each reloaded page and also create graphic imaginate of it  																						
@@ -46,16 +48,12 @@ function loadGUI(){
 	}
 }
 
-function parse(current){
-	 for(let i = 0;i<localStorage.length;i++){
-	 	if(localStorage.key(i) == current){
-	 		var currentCollection = Object.create(collection);
-	 		currentCollection.collectionName = returnString(i).match(/\[(\w+)\]/)[1];
-			for(let j = 0;storage = wordReg.exec(returnString(i));j++){
-				currentCollection.engWords[j] = storage[1];
-				currentCollection.rusWords[j] = storage[2];
-			}
-	 	}
+function parse(key){																				//new compact parse-function 
+	thisCollection = new Object(collection);
+	thisCollection.name = localStorage.getItem(key).match(/\[(\w+)\]/)[1];
+	for(let i = 0;storage = wordReg.exec(localStorage.getItem(key));i++){
+		thisCollection.words[i].rusWord = storage[1];
+		thisCollection.words[i].engWord = storage[2];
 	}
 }
 
@@ -76,4 +74,7 @@ function deleteCollection(current){
 function sheetMode(key){
 	document.getElementById("slideTop").classList.add("slide");                      //top pannel fall down
 	document.getElementById("closeButton").classList.remove("rotate180");			  //rotate up arrow 
+	//compactParse(key);
+	//console.log(thisCollection.name);
+	//console.log(thisCollection.words[0].engWord + " - " + thisCollection.words[0].rusWord);
 }

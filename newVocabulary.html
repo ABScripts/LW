@@ -16,7 +16,14 @@
 	<i  id = "closeButton" class="fas fa-arrow-left"></i>
 </div>
 
-<div id = "slideTop" ></div>
+<div id = "slideTop" >
+	<p> <p>
+	<div id = "buttonsBox">
+		<button></button>
+		<button></button>
+		<button></button>
+	</div>
+</div>
 
 <i class="fas fa-cog"></i>
 	
@@ -36,9 +43,9 @@
 
 	<script>
 		document.getElementById("closeButton").addEventListener("click" , function(){
-		returnedBack == true ? returnedBack = false : returnedBack = true;
-		document.getElementById("slideTop").classList.toggle("slide", !returnedBack);
-		document.getElementById("closeButton").classList.toggle("rotate180" , returnedBack);
+			returnedBack == true ? returnedBack = false : returnedBack = true;
+			document.getElementById("slideTop").classList.toggle("slide", !returnedBack);
+			document.getElementById("closeButton").classList.toggle("rotate180" , returnedBack);
     });
 	</script>
 </body>
