@@ -1,12 +1,13 @@
-var wordReg = /(\w+) *[—-] *(\W+)/g,	
+var wordReg = /(\w+) *[—-] *(\W+)/g,
 	returnedBack = false,	
+	counter = 0,
 	thisCollection,											//reg for parsing words
 		collection = {
-			words: [
-					{	delayed: 0 	}
-			],
+			rusWord: [],
+			engWord: [],
+			delay: [],
 			name: ""
-		}
+		};
 
 window.onload = loadGUI();																			//parse local storage data afte each reloaded page and also create graphic imaginate of it  																						
 
@@ -52,8 +53,10 @@ function parse(key){																				//new compact parse-function
 	thisCollection = new Object(collection);
 	thisCollection.name = localStorage.getItem(key).match(/\[(\w+)\]/)[1];
 	for(let i = 0;storage = wordReg.exec(localStorage.getItem(key));i++){
-		thisCollection.words[i].rusWord = storage[1];
-		thisCollection.words[i].engWord = storage[2];
+		thisCollection.rusWord[i] = storage[1];
+		thisCollection.engWord[i]= storage[2];
+		thisCollection.delay[i] = 0;					
+		//set delay-value in zero
 	}
 }
 
@@ -72,9 +75,25 @@ function deleteCollection(current){
 }
 
 function sheetMode(key){
+	var i = 0;
 	document.getElementById("slideTop").classList.add("slide");                      //top pannel fall down
 	document.getElementById("closeButton").classList.remove("rotate180");			  //rotate up arrow 
-	//compactParse(key);
-	//console.log(thisCollection.name);
-	//console.log(thisCollection.words[0].engWord + " - " + thisCollection.words[0].rusWord);
+	parse(key);
+
+	setClickEventListener(getElementById("next"), function(){
+							counter = checkGap(0, thisCollection.engWord.length-1, ++counter);
+						setTextInsideIElements(getElementById("front"), thisCollection.engWord[counter],
+							getElementById("back"), thisCollection.rusWord[counter]);
+
+					},
+	getElementById("prev"), function(){
+			counter = checkGap(0, thisCollection.engWord.length-1, --counter);
+		setTextInsideIElements(getElementById("front"), thisCollection.engWord[counter],
+							getElementById("back"), thisCollection.rusWord[counter]);
+	});
+
+function checkGap(lowestPoint, heightPoint, myPoint){
+	if(myPoint < lowestPoint) myPoint = heightPoint 
+		else if(myPoint > heightPoint) myPoint = lowestPoint;
+			return myPoint;
 }
