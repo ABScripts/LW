@@ -126,10 +126,11 @@ body .flexWrapper{
 		transform: rotateY(180deg);
 	}
 
-.flip-container, .front, .back {
+.flip-container, .front, .back{
 	width: 320px;
 	height: 200px;
 }
+
 
 /* flip speed goes here */
 #card {

@@ -1,7 +1,8 @@
 var wordReg = /(\w+) *[—-] *(\W+)/g,
 	returnedBack = false,	
-	counter = 0,
-	thisCollection,											//reg for parsing words
+	//counter = 0,
+	//alreadyListener = false,
+	thisCollection,																						//reg for parsing words
 		collection = {
 			rusWord: [],
 			engWord: [],
@@ -9,13 +10,13 @@ var wordReg = /(\w+) *[—-] *(\W+)/g,
 			name: ""
 		};
 
-window.onload = loadGUI();																			//parse local storage data afte each reloaded page and also create graphic imaginate of it  																						
+window.onload = loadGUI();																				//parse local storage data afte each reloaded page and also create graphic imaginate of it  																						
 
-function returnString(key){																		//return strings from the local Storage by key
+function returnString(key){																				//return strings from the local Storage by key
 	return localStorage.getItem(localStorage.key(key));
 }
 
-function setKeyWord(){																			//return key words for future collections
+function setKeyWord(){																					//return key words for future collections
 	return localStorage.length;
 }
 
@@ -33,7 +34,7 @@ function createCollection(){          																	//create new collection a
 }
 
 function createGIFC(str, key){								
-	document.getElementById("collectionsBar").appendChild(createElement("div", ""));				//wrapper	
+	document.getElementById("collectionsBar").appendChild(createElement("div", ""));					//wrapper	
 	let element = document.getElementById("collectionsBar").lastChild;
 	setAttributes(element, ["class", "wrapper"]);
 	document.getElementById("collectionsBar").lastChild.appendChild(createElement("p", str));
@@ -49,7 +50,7 @@ function loadGUI(){
 	}
 }
 
-function parse(key){																				//new compact parse-function 
+function parse(key){																					//new compact parse-function 
 	thisCollection = new Object(collection);
 	thisCollection.name = localStorage.getItem(key).match(/\[(\w+)\]/)[1];
 	for(let i = 0;storage = wordReg.exec(localStorage.getItem(key));i++){
@@ -57,7 +58,7 @@ function parse(key){																				//new compact parse-function
 		thisCollection.engWord[i]= storage[2];
 		thisCollection.delay[i] = 0;					
 		//set delay-value in zero
-	}
+	} 
 }
 
 function deleteCollection(current){
@@ -71,29 +72,34 @@ function deleteCollection(current){
 			}
 
            		loadGUI();																	//set new collectionsBar elms
+ }
+
+function sheetMode(key){
+	let counter = 0, 
+		alreadyListener = false;	
+
+	document.getElementById("slideTop").classList.add("slide");                      		//top pannel fall down
+	document.getElementById("closeButton").classList.remove("rotate180");			  		//rotate up arrow 
+	parse(key);	
+
+	if(! alreadyListener){
+
+			setClickEventListener(getElementById("next"), function increase(){
+								counter = checkGap(0, thisCollection.engWord.length-1, ++counter);
+							setTextInsideIElements(getElementById("front"), thisCollection.engWord[counter],
+								getElementById("back"), thisCollection.rusWord[counter]);
+						}, false,
+		getElementById("prev"), function unincrease(){
+				counter = checkGap(0, thisCollection.engWord.length-1, --counter);
+			setTextInsideIElements(getElementById("front"), thisCollection.engWord[counter],
+								getElementById("back"), thisCollection.rusWord[counter]);
+		}, false);
+	}
 
 }
 
-function sheetMode(key){
-	var i = 0;
-	document.getElementById("slideTop").classList.add("slide");                      //top pannel fall down
-	document.getElementById("closeButton").classList.remove("rotate180");			  //rotate up arrow 
-	parse(key);
-
-	setClickEventListener(getElementById("next"), function(){
-							counter = checkGap(0, thisCollection.engWord.length-1, ++counter);
-						setTextInsideIElements(getElementById("front"), thisCollection.engWord[counter],
-							getElementById("back"), thisCollection.rusWord[counter]);
-
-					},
-	getElementById("prev"), function(){
-			counter = checkGap(0, thisCollection.engWord.length-1, --counter);
-		setTextInsideIElements(getElementById("front"), thisCollection.engWord[counter],
-							getElementById("back"), thisCollection.rusWord[counter]);
-	});
 
 function checkGap(lowestPoint, heightPoint, myPoint){
 	if(myPoint < lowestPoint) myPoint = heightPoint 
 		else if(myPoint > heightPoint) myPoint = lowestPoint;
-			return myPoint;
-}
+			return myPoint; }
