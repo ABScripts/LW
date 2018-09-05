@@ -78,22 +78,24 @@ function sheetMode(key){
 	let counter = 0, 
 		alreadyListener = false;	
 
+
 	document.getElementById("slideTop").classList.add("slide");                      		//top pannel fall down
+	document.getElementById("closeButton").classList.add("opacityTrue");
 	document.getElementById("closeButton").classList.remove("rotate180");			  		//rotate up arrow 
 	parse(key);	
 
 	if(! alreadyListener){
 
-			setClickEventListener(getElementById("next"), function increase(){
+			setClickEventListener(getElementById("next"), function (){
 								counter = checkGap(0, thisCollection.engWord.length-1, ++counter);
 							setTextInsideIElements(getElementById("front"), thisCollection.engWord[counter],
 								getElementById("back"), thisCollection.rusWord[counter]);
-						}, false,
-		getElementById("prev"), function unincrease(){
+						},
+		getElementById("prev"), function (){
 				counter = checkGap(0, thisCollection.engWord.length-1, --counter);
 			setTextInsideIElements(getElementById("front"), thisCollection.engWord[counter],
 								getElementById("back"), thisCollection.rusWord[counter]);
-		}, false);
+		});
 	}
 
 }

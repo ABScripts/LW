@@ -25,4 +25,4 @@ return element; }
 function setClickEventListener(){
 	alreadyListener = true;
 	for(let i = 0;i<arguments.length;i++)
-		arguments[i].addEventListener("click", arguments[++i], arguments[++i]); }
+		arguments[i].addEventListener("click", arguments[++i]); }
