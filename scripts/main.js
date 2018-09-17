@@ -1,7 +1,5 @@
 var wordReg = /(\w+) *[—-] *(\W+)/g,
 	returnedBack = false,	
-	//counter = 0,
-	//alreadyListener = false,
 	thisCollection,																						//reg for parsing words
 		collection = {
 			rusWord: [],
@@ -56,7 +54,7 @@ function parse(key){																					//new compact parse-function
 	for(let i = 0;storage = wordReg.exec(localStorage.getItem(key));i++){
 		thisCollection.rusWord[i] = storage[1];
 		thisCollection.engWord[i]= storage[2];
-		thisCollection.delay[i] = 0;					
+		//thisCollection.delay[i] = 0;					
 		//set delay-value in zero
 	} 
 }
@@ -75,7 +73,7 @@ function deleteCollection(current){
  }
 
 function sheetMode(key){
-	let counter = 0, 
+	let counter = 1, 
 		alreadyListener = false;	
 
 
@@ -83,6 +81,9 @@ function sheetMode(key){
 	document.getElementById("closeButton").classList.add("opacityTrue");
 	document.getElementById("closeButton").classList.remove("rotate180");			  		//rotate up arrow 
 	parse(key);	
+
+	setTextInsideIElements(getElementById("front"), thisCollection.engWord[0], 
+		getElementById("back"), thisCollection.rusWord[0]);
 
 	if(! alreadyListener){
 
@@ -99,7 +100,6 @@ function sheetMode(key){
 	}
 
 }
-
 
 function checkGap(lowestPoint, heightPoint, myPoint){
 	if(myPoint < lowestPoint) myPoint = heightPoint 

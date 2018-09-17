@@ -24,7 +24,7 @@ border-bottom: 3px solid #bdc7d8;
 	
 	#logo #closeButton{
 	position: absolute;
-	left: 0; top: -5%;
+	left: 0; top: -10%;
 	width: 8%; height: 5%;
 	}
 	
@@ -105,53 +105,6 @@ body .flexWrapper{
 	position: relative;
 }
 
-
-
-/* entire container, keeps perspective */
-.flip-container {
-	perspective: 1000px;
-	border: 3px solid black;
-	margin: 0 auto;
-}
-	/* flip the pane when hovered */
-	.flip-container:hover #card, .flip-container.hover .flipper {
-		transform: rotateY(180deg);
-	}
-
-.flip-container, .front, .back{
-	width: 320px;
-	height: 200px;
-}
-
-
-/* flip speed goes here */
-#card {
-	transition: 0.6s;
-	transform-style: preserve-3d;
-
-	position: relative;
-}
-
-/* hide back of pane during swap */
-.front, .back {
-	backface-visibility: hidden;
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-
-/* front pane, placed above back */
-.front {
-	z-index: 2;
-	/* for firefox 31 */
-	transform: rotateY(0deg);
-}
-
-/* back, initially hidden pane */
-.back {
-	transform: rotateY(180deg);
-}
-
 /*Other styles which uses only with adding some classes to elm`s*/
 
 .slide{
@@ -165,3 +118,56 @@ body .flexWrapper{
 .rotate180{
 			transform: rotate(180deg);
 		}
+
+/* entire container, keeps perspective */
+.flip-container {
+	perspective: 1000px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.flip-container:active .flipper, .flip-container.hover .flipper, .flip-container.flip .flipper {
+	transform: rotateY(180deg);
+}
+
+.flip-container, #front, #back {
+	width: 150px; height: 100px;
+}
+
+#slideTop .flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	position: relative;top: 100%;
+}
+
+#front, #back {
+	backface-visibility: hidden;
+	font-size: 3em;
+	position: absolute; 
+	top: 0;
+	left: 0;
+}
+
+#front {
+	z-index: 2;
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+#back {
+	transform: rotateY(180deg);
+}
+
+#prev{
+	float: left;
+}
+
+#next{
+	float: right;
+}
+
+#next, #prev{
+		margin: 0;
+		height: 100%; width: 8%;
+		background-color: black;
+}
