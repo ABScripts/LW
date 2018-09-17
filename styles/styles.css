@@ -168,6 +168,6 @@ body .flexWrapper{
 
 #next, #prev{
 		margin: 0;
-		height: 100%; width: 8%;
-		background-color: black;
+		height: 100%; width: 35%;
+		background-color: #67647d;
 }
